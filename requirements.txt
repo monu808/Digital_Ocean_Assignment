@@ -1,0 +1,25 @@
+# Core Framework
+streamlit==1.29.0
+
+# LLM Integration
+openai==1.6.1
+anthropic==0.7.8
+google-generativeai==0.3.2
+
+# Database
+sqlalchemy==2.0.23
+
+# Utilities
+python-dotenv==1.0.0
+pydantic==2.5.3
+requests==2.31.0
+
+# Date/Time handling
+python-dateutil==2.8.2
+
+# JSON handling
+jsonschema==4.20.0
+
+# Testing (optional)
+pytest==7.4.3
+pytest-cov==4.1.0

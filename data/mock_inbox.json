@@ -1,0 +1,184 @@
+{
+  "emails": [
+    {
+      "id": "email_001",
+      "sender": "john.smith@techcorp.com",
+      "sender_name": "John Smith",
+      "subject": "Urgent: Q4 Project Deadline Moved Up",
+      "body": "Hi Team,\n\nI wanted to inform you that our Q4 project deadline has been moved up by two weeks. We now need to deliver the final presentation by December 1st instead of December 15th.\n\nPlease review your current tasks and let me know if this timeline is feasible. We may need to prioritize critical features and defer some nice-to-haves.\n\nCan we schedule a quick sync tomorrow at 2 PM to discuss?\n\nBest regards,\nJohn",
+      "timestamp": "2025-11-20T09:15:00Z",
+      "has_attachments": false,
+      "labels": ["work", "urgent"]
+    },
+    {
+      "id": "email_002",
+      "sender": "newsletter@techinsights.com",
+      "sender_name": "Tech Insights Daily",
+      "subject": "🚀 Top 10 AI Trends for 2025",
+      "body": "Hello Subscriber,\n\nWelcome to this week's Tech Insights newsletter!\n\nIn this edition:\n- The Rise of Multimodal AI Systems\n- How LLMs are Transforming Customer Service\n- Top Programming Languages to Learn in 2025\n- Cloud Computing Cost Optimization Tips\n- And much more!\n\n[Click here to read full articles]\n\nUnsubscribe | Manage Preferences",
+      "timestamp": "2025-11-20T06:30:00Z",
+      "has_attachments": false,
+      "labels": ["newsletter", "tech"]
+    },
+    {
+      "id": "email_003",
+      "sender": "sarah.johnson@clientco.com",
+      "sender_name": "Sarah Johnson",
+      "subject": "Meeting Request: Product Demo Next Week",
+      "body": "Hi,\n\nI hope this email finds you well. We're very interested in seeing a demo of your new analytics platform.\n\nWould you be available for a 1-hour video call next week? We're flexible on timing, but prefer Tuesday or Wednesday afternoon.\n\nCould you also send over an agenda beforehand so we can prepare any specific questions?\n\nLooking forward to hearing from you.\n\nBest,\nSarah Johnson\nHead of Product, ClientCo",
+      "timestamp": "2025-11-19T14:20:00Z",
+      "has_attachments": false,
+      "labels": ["meeting", "client"]
+    },
+    {
+      "id": "email_004",
+      "sender": "noreply@promotion.shop",
+      "sender_name": "Super Deals Shop",
+      "subject": "⚡ FLASH SALE: 90% OFF Everything! Limited Time Only!!!",
+      "body": "CONGRATULATIONS!!! You've been selected for our EXCLUSIVE FLASH SALE!\n\n90% OFF on ALL PRODUCTS! But hurry - this offer expires in 24 HOURS!\n\n🎁 FREE SHIPPING\n🎁 FREE GIFT with every purchase\n🎁 EXTRA 10% OFF with code: SAVE10\n\nClick here NOW to claim your discount: [suspicious-link]\n\nDon't miss out on this ONCE-IN-A-LIFETIME opportunity!\n\n*This email was sent to millions of subscribers",
+      "timestamp": "2025-11-20T11:45:00Z",
+      "has_attachments": false,
+      "labels": ["promotion", "spam"]
+    },
+    {
+      "id": "email_005",
+      "sender": "michael.chen@company.com",
+      "sender_name": "Michael Chen",
+      "subject": "Code Review Needed: PR #234",
+      "body": "Hey,\n\nI've just submitted PR #234 for the authentication module refactoring. Could you review it when you get a chance?\n\nKey changes:\n- Implemented OAuth2 flow\n- Added unit tests (coverage: 95%)\n- Updated documentation\n- Fixed the token refresh bug\n\nIt's a bit large (450 lines changed), so take your time. I'd appreciate feedback by end of week if possible.\n\nThanks!\nMichael",
+      "timestamp": "2025-11-19T16:45:00Z",
+      "has_attachments": false,
+      "labels": ["work", "code-review"]
+    },
+    {
+      "id": "email_006",
+      "sender": "hr@company.com",
+      "sender_name": "Human Resources",
+      "subject": "Action Required: Complete Annual Performance Review",
+      "body": "Dear Employee,\n\nThis is a reminder to complete your annual performance self-assessment by November 30th, 2025.\n\nPlease log into the HR portal and:\n1. Complete the self-assessment form\n2. List your key achievements for 2025\n3. Set goals for 2026\n4. Schedule a 1-on-1 with your manager\n\nFailure to complete this by the deadline may delay your performance review cycle.\n\nIf you have any questions, please contact the HR team.\n\nBest regards,\nHR Department",
+      "timestamp": "2025-11-18T10:00:00Z",
+      "has_attachments": true,
+      "labels": ["hr", "action-required"]
+    },
+    {
+      "id": "email_007",
+      "sender": "events@devconference.com",
+      "sender_name": "DevConference 2025",
+      "subject": "You're Invited: DevConference 2025 - Early Bird Tickets",
+      "body": "Hello Developer,\n\nWe're excited to announce DevConference 2025, taking place on March 15-17, 2026 in San Francisco!\n\nFeaturing:\n- 50+ expert speakers\n- Hands-on workshops\n- Networking events\n- Latest tech innovations\n\nEarly bird tickets are now available at 40% off. Use code: EARLYBIRD2025\n\nRegister by December 15th to secure your spot!\n\n[Register Now]\n\nSee you there!",
+      "timestamp": "2025-11-20T08:00:00Z",
+      "has_attachments": false,
+      "labels": ["event", "newsletter"]
+    },
+    {
+      "id": "email_008",
+      "sender": "lisa.brown@company.com",
+      "sender_name": "Lisa Brown",
+      "subject": "Re: Budget Approval for Q1 2026",
+      "body": "Hi,\n\nThank you for submitting the Q1 2026 budget proposal. The finance team has reviewed it and approved the following:\n\n✅ Infrastructure upgrades: $50,000\n✅ New hire budget: $120,000\n✅ Marketing campaigns: $30,000\n❌ Office renovation: Deferred to Q2\n\nThe approved budget will be available starting January 1st. Please coordinate with procurement for any immediate purchases.\n\nLet me know if you have questions.\n\nBest,\nLisa Brown\nFinance Director",
+      "timestamp": "2025-11-19T13:30:00Z",
+      "has_attachments": true,
+      "labels": ["work", "finance"]
+    },
+    {
+      "id": "email_009",
+      "sender": "security@company.com",
+      "sender_name": "IT Security Team",
+      "subject": "URGENT: Security Patch Required - Action by EOD",
+      "body": "IMPORTANT SECURITY NOTICE\n\nA critical security vulnerability has been identified in our VPN client. All employees must update to version 3.2.1 by end of day today.\n\nHow to update:\n1. Open VPN client\n2. Go to Help > Check for Updates\n3. Install version 3.2.1\n4. Restart your computer\n\nThis is mandatory. Non-compliant devices will be blocked from the network.\n\nIf you encounter any issues, contact IT support immediately at ext. 5555.\n\nThank you for your cooperation.\nIT Security Team",
+      "timestamp": "2025-11-20T07:15:00Z",
+      "has_attachments": false,
+      "labels": ["security", "urgent", "action-required"]
+    },
+    {
+      "id": "email_010",
+      "sender": "marketing@newsletter.com",
+      "sender_name": "Marketing Weekly",
+      "subject": "📊 Your Weekly Marketing Digest",
+      "body": "Hi there!\n\nHere's your curated marketing content for this week:\n\n📈 Top performing campaigns\n💡 New social media strategies\n🎯 Customer segmentation tips\n📱 Mobile-first design trends\n\nPlus: Exclusive interview with a Fortune 500 CMO!\n\n[Read Full Newsletter]\n\nStay ahead of the curve with Marketing Weekly.\n\nUnsubscribe anytime.",
+      "timestamp": "2025-11-18T12:00:00Z",
+      "has_attachments": false,
+      "labels": ["newsletter", "marketing"]
+    },
+    {
+      "id": "email_011",
+      "sender": "david.wilson@partner.com",
+      "sender_name": "David Wilson",
+      "subject": "Partnership Proposal: Co-Marketing Opportunity",
+      "body": "Dear Partner,\n\nI'm reaching out from Wilson & Associates regarding a potential co-marketing partnership.\n\nWe believe our products complement each other well and could benefit from a joint marketing campaign targeting enterprise customers.\n\nProposal highlights:\n- Joint webinar series (quarterly)\n- Cross-promotion on social media\n- Co-branded case studies\n- Shared booth at TechExpo 2026\n\nAre you interested in discussing this further? I'd love to set up a call to explore the possibilities.\n\nBest regards,\nDavid Wilson\nPartnership Director",
+      "timestamp": "2025-11-17T15:20:00Z",
+      "has_attachments": true,
+      "labels": ["business", "partnership"]
+    },
+    {
+      "id": "email_012",
+      "sender": "support@cloudservice.com",
+      "sender_name": "Cloud Service Support",
+      "subject": "Your Support Ticket #78234 Has Been Resolved",
+      "body": "Hello,\n\nYour support ticket #78234 regarding database connection issues has been resolved.\n\nSolution Applied:\nWe've updated your connection string configuration and increased the connection pool size. The service should now be stable.\n\nResolution Details:\n- Issue: Connection timeout errors\n- Root cause: Insufficient connection pool\n- Fix applied: Increased pool from 10 to 50 connections\n- Status: Monitoring for 24 hours\n\nIf you experience any further issues, please reply to this email or create a new ticket.\n\nThank you for your patience.\n\nCloud Service Support Team",
+      "timestamp": "2025-11-19T09:30:00Z",
+      "has_attachments": false,
+      "labels": ["support", "technical"]
+    },
+    {
+      "id": "email_013",
+      "sender": "rachel.green@company.com",
+      "sender_name": "Rachel Green",
+      "subject": "Team Lunch This Friday?",
+      "body": "Hey team!\n\nIt's been a while since we all got together. How about a team lunch this Friday at 12:30 PM?\n\nI was thinking we could try that new Italian place downtown. They have great reviews!\n\nLet me know if you're in by Wednesday so I can make a reservation.\n\nCheers,\nRachel",
+      "timestamp": "2025-11-20T10:15:00Z",
+      "has_attachments": false,
+      "labels": ["social", "team"]
+    },
+    {
+      "id": "email_014",
+      "sender": "noreply@phishing-attempt.com",
+      "sender_name": "Account Security",
+      "subject": "URGENT: Your Account Will Be Suspended",
+      "body": "Dear Valued Customer,\n\nWe have detected unusual activity on your account. Your account will be SUSPENDED within 24 hours unless you verify your identity immediately.\n\nClick here to verify now: [suspicious-link.com]\n\nYou must provide:\n- Full name\n- Account password\n- Social security number\n- Credit card details\n\nFailure to comply will result in permanent account closure and legal action.\n\nThis is an automated message. Do not reply.\n\nAccount Security Team",
+      "timestamp": "2025-11-20T13:00:00Z",
+      "has_attachments": false,
+      "labels": ["phishing", "spam"]
+    },
+    {
+      "id": "email_015",
+      "sender": "amy.watson@company.com",
+      "sender_name": "Amy Watson",
+      "subject": "Project Update: Mobile App Beta Release",
+      "body": "Hi everyone,\n\nGreat news! We've successfully released the mobile app beta version to our internal testers.\n\nCurrent status:\n✅ iOS build deployed to TestFlight (v1.0-beta.3)\n✅ Android build on Google Play Internal Testing\n✅ 50 internal testers enrolled\n⏳ Waiting for feedback (deadline: Nov 25)\n\nNext steps:\n1. Collect and analyze tester feedback\n2. Fix critical bugs (priority: P0, P1)\n3. Prepare for public beta (target: Dec 5)\n4. Marketing team to prepare launch materials\n\nPlease share this with your teams. Looking forward to the feedback!\n\nBest,\nAmy Watson\nProduct Manager",
+      "timestamp": "2025-11-19T11:00:00Z",
+      "has_attachments": false,
+      "labels": ["project-update", "mobile"]
+    },
+    {
+      "id": "email_016",
+      "sender": "training@company.com",
+      "sender_name": "Learning & Development",
+      "subject": "Mandatory: Cybersecurity Training - Complete by Nov 30",
+      "body": "Dear Team Member,\n\nAs part of our annual compliance requirements, all employees must complete the Cybersecurity Awareness Training by November 30, 2025.\n\nCourse Details:\n- Duration: 45 minutes\n- Format: Online, self-paced\n- Pass score: 80% or higher\n- Attempts: Unlimited\n\nTopics covered:\n- Phishing awareness\n- Password security\n- Data protection\n- Social engineering\n- Incident reporting\n\nAccess the training portal: [internal-link]\n\nCompletion is mandatory and tracked. Non-compliance may affect your annual review.\n\nThank you,\nL&D Team",
+      "timestamp": "2025-11-18T08:45:00Z",
+      "has_attachments": false,
+      "labels": ["training", "compliance", "action-required"]
+    },
+    {
+      "id": "email_017",
+      "sender": "james.anderson@vendor.com",
+      "sender_name": "James Anderson",
+      "subject": "Invoice #INV-2025-1142 - Payment Due",
+      "body": "Dear Accounts Payable,\n\nPlease find attached invoice #INV-2025-1142 for cloud services rendered in October 2025.\n\nInvoice Summary:\n- Amount: $4,750.00\n- Services: Cloud hosting & storage\n- Period: October 1-31, 2025\n- Due Date: December 5, 2025\n- Payment terms: Net 30\n\nPayment methods:\n- Bank transfer (preferred)\n- Check\n- ACH\n\nPlease confirm receipt and expected payment date.\n\nBest regards,\nJames Anderson\nAccounts Manager\nVendor Cloud Services",
+      "timestamp": "2025-11-19T10:30:00Z",
+      "has_attachments": true,
+      "labels": ["finance", "invoice"]
+    },
+    {
+      "id": "email_018",
+      "sender": "feedback@surveyapp.com",
+      "sender_name": "Employee Survey",
+      "subject": "We Value Your Feedback - Q4 Employee Survey",
+      "body": "Hello,\n\nYour opinion matters! Please take 5 minutes to complete our Q4 Employee Engagement Survey.\n\nYour anonymous feedback helps us:\n- Improve workplace culture\n- Address employee concerns\n- Plan better benefits\n- Enhance work-life balance\n\nThe survey covers:\n- Job satisfaction\n- Team dynamics\n- Leadership effectiveness\n- Growth opportunities\n- Work environment\n\n[Take Survey Now]\n\nDeadline: November 28, 2025\n\nThank you for your participation!",
+      "timestamp": "2025-11-17T14:00:00Z",
+      "has_attachments": false,
+      "labels": ["survey", "hr"]
+    }
+  ]
+}

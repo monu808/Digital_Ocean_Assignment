@@ -1,0 +1,39 @@
+{
+  "prompts": {
+    "categorization": {
+      "name": "Email Categorization",
+      "description": "Categorizes emails into predefined categories",
+      "template": "Analyze the following email and categorize it into ONE of these categories: Important, Newsletter, Spam, To-Do.\n\nCategorization Rules:\n- **Important**: Urgent matters, security alerts, critical business communications requiring immediate attention\n- **Newsletter**: Marketing emails, subscriptions, periodic updates, promotional content\n- **Spam**: Suspicious emails, phishing attempts, unwanted promotions, scams\n- **To-Do**: Emails with direct action items, tasks requiring completion, deadlines, or requests for work\n\nEmail Content:\nFrom: {sender}\nSubject: {subject}\nBody: {body}\n\nRespond with ONLY the category name (Important, Newsletter, Spam, or To-Do). No explanation needed.",
+      "version": "1.0",
+      "active": true
+    },
+    "action_extraction": {
+      "name": "Action Item Extraction",
+      "description": "Extracts actionable tasks and deadlines from emails",
+      "template": "Analyze the following email and extract all action items, tasks, and deadlines.\n\nEmail Content:\nFrom: {sender}\nSubject: {subject}\nBody: {body}\n\nExtract:\n1. Specific tasks or action items requested\n2. Deadlines or due dates (if mentioned)\n3. Priority level (high/medium/low)\n\nRespond in JSON format:\n{\n  \"tasks\": [\n    {\n      \"task\": \"description of the task\",\n      \"deadline\": \"specific date or 'None' if not mentioned\",\n      \"priority\": \"high/medium/low\"\n    }\n  ]\n}\n\nIf no action items are found, return: {\"tasks\": []}",
+      "version": "1.0",
+      "active": true
+    },
+    "auto_reply": {
+      "name": "Auto-Reply Draft Generation",
+      "description": "Generates professional reply drafts based on email context",
+      "template": "Generate a professional reply draft for the following email. Consider the context and tone to create an appropriate response.\n\nOriginal Email:\nFrom: {sender}\nSubject: {subject}\nBody: {body}\n\nReply Guidelines:\n- If it's a **meeting request**: Accept tentatively and ask for an agenda or more details\n- If it's a **task request**: Acknowledge receipt and provide a realistic timeline or ask clarifying questions\n- If it's an **information request**: Provide helpful information or indicate when you'll follow up\n- If it's a **complaint or issue**: Show empathy and outline next steps\n- If it's a **general update**: Acknowledge and thank the sender\n\nMaintain a professional, friendly tone. Keep the response concise (2-4 paragraphs).\n\nGenerate the reply in this format:\n{\n  \"subject\": \"Re: [original subject]\",\n  \"body\": \"[draft email body]\",\n  \"tone\": \"professional/friendly/formal\"\n}",
+      "version": "1.0",
+      "active": true
+    },
+    "summary": {
+      "name": "Email Summary",
+      "description": "Creates concise summaries of email content",
+      "template": "Provide a concise summary of the following email in 2-3 sentences. Focus on the main point and any action required.\n\nEmail Content:\nFrom: {sender}\nSubject: {subject}\nBody: {body}\n\nSummary:",
+      "version": "1.0",
+      "active": true
+    },
+    "urgency_analysis": {
+      "name": "Urgency Analysis",
+      "description": "Determines the urgency level of emails",
+      "template": "Analyze the urgency level of this email on a scale of 1-5:\n\n1 = Not urgent (can wait days/weeks)\n2 = Low urgency (can wait a few days)\n3 = Medium urgency (should respond within 1-2 days)\n4 = High urgency (should respond within 24 hours)\n5 = Critical urgency (requires immediate attention)\n\nEmail Content:\nFrom: {sender}\nSubject: {subject}\nBody: {body}\n\nRespond with:\n{\n  \"urgency_score\": [1-5],\n  \"reason\": \"brief explanation\",\n  \"suggested_response_time\": \"timeframe\"\n}",
+      "version": "1.0",
+      "active": true
+    }
+  }
+}
