@@ -63,7 +63,7 @@ def show():
                     st.caption(f"Subject: {related_email.subject}")
                     
                     with st.expander("View Original Email"):
-                        st.text_area("", related_email.body, height=150, key=f"original_{draft.id}", label_visibility="collapsed")
+                        st.text_area("Original Email", related_email.body, height=150, key=f"original_{draft.id}", label_visibility="collapsed")
             
             st.markdown("---")
             
@@ -151,7 +151,7 @@ def show():
                 st.markdown("### Draft Preview")
                 st.markdown(f"**Subject:** {draft.subject}")
                 st.markdown("**Body:**")
-                st.text_area("", draft.body, height=400, key=f"view_{draft.id}", label_visibility="collapsed", disabled=True)
+                st.text_area("Draft Body", draft.body, height=400, key=f"view_{draft.id}", label_visibility="collapsed", disabled=True)
             
             st.markdown("---")
             

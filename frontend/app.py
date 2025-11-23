@@ -244,7 +244,7 @@ if page == "🏠 Home":
                         st.markdown(f"**Category:** {category_colors.get(formatted['category'], '⚪')} {formatted['category']}")
                     
                     st.markdown("**Body:**")
-                    st.text_area("", formatted['body'], height=200, key=f"body_{email.id}", label_visibility="collapsed")
+                    st.text_area("Email Body", formatted['body'], height=200, key=f"body_{email.id}", label_visibility="collapsed")
                 
                 with col2:
                     if formatted['action_items']:
@@ -283,13 +283,13 @@ if page == "🏠 Home":
         """)
 
 elif page == "⚙️ Prompt Configuration":
-    from frontend.pages import prompt_config
+    from frontend.pages_backup import prompt_config
     prompt_config.show()
 
 elif page == "💬 Email Agent Chat":
-    from frontend.pages import email_chat
+    from frontend.pages_backup import email_chat
     email_chat.show()
 
 elif page == "📝 Draft Manager":
-    from frontend.pages import draft_manager
+    from frontend.pages_backup import draft_manager
     draft_manager.show()

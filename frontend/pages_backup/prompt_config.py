@@ -103,12 +103,48 @@ def show():
                                 elif prompt_type == 'action_extraction':
                                     result = agent.llm.extract_action_items(test_sender, test_subject, test_body, new_template)
                                     st.markdown("**Result:**")
-                                    st.json(result)
+                                    if 'tasks' in result:
+                                        st.success(f"✅ Found {len(result['tasks'])} action item(s)")
+                                        for i, task in enumerate(result['tasks'], 1):
+                                            with st.container():
+                                                st.markdown(f"**Task {i}:** {task.get('task', 'N/A')}")
+                                                col1, col2 = st.columns(2)
+                                                with col1:
+                                                    st.markdown(f"⏰ **Deadline:** {task.get('deadline', 'Not specified')}")
+                                                with col2:
+                                                    priority = task.get('priority', 'medium')
+                                                    priority_emoji = {'high': '🔴', 'medium': '🟡', 'low': '🟢'}.get(priority, '⚪')
+                                                    st.markdown(f"{priority_emoji} **Priority:** {priority.title()}")
+                                                st.markdown("---")
+                                    else:
+                                        st.json(result)
                                 
                                 elif prompt_type == 'auto_reply':
                                     result = agent.llm.generate_reply_draft(test_sender, test_subject, test_body, new_template)
                                     st.markdown("**Result:**")
-                                    st.json(result)
+                                    if isinstance(result, dict):
+                                        st.info(f"**Subject:** {result.get('subject', 'N/A')}")
+                                        st.markdown("**Reply Draft:**")
+                                        st.text_area("Reply Body", value=result.get('body', 'N/A'), height=200, disabled=True, key=f"reply_preview_{prompt_type}", label_visibility="collapsed")
+                                        st.caption(f"Tone: {result.get('tone', 'N/A').title()}")
+                                    else:
+                                        st.json(result)
+                                
+                                elif prompt_type == 'urgency_analysis':
+                                    result = agent.llm.analyze_urgency(test_sender, test_subject, test_body, new_template)
+                                    st.markdown("**Result:**")
+                                    if isinstance(result, dict):
+                                        score = result.get('urgency_score', 0)
+                                        # Display urgency meter
+                                        col1, col2, col3 = st.columns([1, 2, 1])
+                                        with col2:
+                                            urgency_color = ['🟢', '🟡', '🟠', '🔴', '🔴'][min(int(score)-1, 4)]
+                                            st.metric("Urgency Score", f"{urgency_color} {score}/5")
+                                        
+                                        st.info(f"**Reason:** {result.get('reason', 'N/A')}")
+                                        st.success(f"⏰ **Suggested Response Time:** {result.get('suggested_response_time', 'N/A')}")
+                                    else:
+                                        st.json(result)
                                 
                                 else:
                                     result = agent.llm.generate_completion(formatted_prompt)

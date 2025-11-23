@@ -49,7 +49,20 @@ class LLMService:
                     raise ValueError("GEMINI_API_KEY not found in environment variables")
                 genai.configure(api_key=self.api_key)
                 self.model = os.getenv('GEMINI_MODEL', 'gemini-1.5-flash')
-                self.client = genai.GenerativeModel(self.model)
+                
+                # Configure safety settings to be less restrictive for email processing
+                from google.generativeai.types import HarmCategory, HarmBlockThreshold
+                safety_settings = {
+                    HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+                    HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+                    HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+                    HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+                }
+                
+                self.client = genai.GenerativeModel(
+                    self.model,
+                    safety_settings=safety_settings
+                )
             
             elif self.provider == 'ollama':
                 import requests
@@ -107,13 +120,28 @@ class LLMService:
                 return response.content[0].text.strip()
             
             elif self.provider == 'gemini':
+                # For JSON responses, add response_mime_type to force JSON
+                generation_config = {
+                    'temperature': temperature,
+                    'max_output_tokens': max_tokens,
+                }
+                
                 response = self.client.generate_content(
                     prompt,
-                    generation_config={
-                        'temperature': temperature,
-                        'max_output_tokens': max_tokens,
-                    }
+                    generation_config=generation_config
                 )
+                
+                # Check if response was blocked or has no text
+                if not response.parts:
+                    # Check finish reason
+                    finish_reason = response.candidates[0].finish_reason if response.candidates else None
+                    if finish_reason == 2:  # SAFETY
+                        return "⚠️ Response blocked by safety filters. Try adjusting the prompt or use less sensitive test data."
+                    elif finish_reason == 3:  # RECITATION
+                        return "⚠️ Response blocked due to recitation concerns. Try rephrasing the prompt."
+                    else:
+                        return "⚠️ No response generated. The model may have encountered an issue."
+                
                 return response.text.strip()
             
             elif self.provider == 'ollama':
@@ -144,32 +172,79 @@ class LLMService:
         Returns:
             Parsed JSON response as dictionary
         """
+        original_response = ""
+        
         try:
-            # Add JSON formatting instruction
-            json_prompt = f"{prompt}\n\nIMPORTANT: Respond with valid JSON only, no additional text."
+            # For Gemini, use a special JSON-focused prompt with explicit single-line instruction
+            if self.provider == 'gemini':
+                json_prompt = f"{prompt}\n\nIMPORTANT: Output ONLY a single-line JSON object with no line breaks, no indentation, no extra spaces. Example format: {{\"key\":\"value\",\"key2\":\"value2\"}}"
+            else:
+                json_prompt = f"{prompt}\n\nCRITICAL: Your response must be ONLY valid JSON. Do not include any markdown formatting, code blocks, or explanatory text. Output raw JSON only."
             
             response = self.generate_completion(json_prompt, temperature=temperature, max_tokens=1500)
+            original_response = response  # Save for error reporting
             
-            # Try to extract JSON if wrapped in markdown code blocks
-            if "```json" in response:
-                response = response.split("```json")[1].split("```")[0].strip()
-            elif "```" in response:
-                response = response.split("```")[1].split("```")[0].strip()
+            # Check if response is a safety warning
+            if response.startswith("⚠️"):
+                raise Exception(response)
             
-            # Parse JSON
-            return json.loads(response)
-        
-        except json.JSONDecodeError as e:
-            # Fallback: try to find JSON in the response
+            # Store original response before any cleaning
+            original_response = response.strip()
+            
+            # Remove markdown code blocks if present
+            if original_response.startswith('```'):
+                lines = original_response.split('\n')
+                if len(lines) > 2:
+                    original_response = '\n'.join(lines[1:-1])
+                    if original_response.startswith('json') or original_response.startswith('JSON'):
+                        original_response = original_response[4:].strip()
+            
+            # Try to parse original response first
             try:
-                start = response.find('{')
-                end = response.rfind('}') + 1
-                if start != -1 and end > start:
-                    return json.loads(response[start:end])
-            except:
+                return json.loads(original_response)
+            except json.JSONDecodeError:
                 pass
             
-            raise Exception(f"Failed to parse JSON from LLM response: {str(e)}\nResponse: {response}")
+            # Remove extra whitespace but preserve structure
+            cleaned = ' '.join(original_response.split())
+            try:
+                return json.loads(cleaned)
+            except json.JSONDecodeError:
+                pass
+            
+            # Try to find JSON object in response
+            start_idx = original_response.find('{')
+            end_idx = original_response.rfind('}')
+            if start_idx != -1 and end_idx != -1:
+                json_str = original_response[start_idx:end_idx + 1]
+                try:
+                    return json.loads(json_str)
+                except json.JSONDecodeError:
+                    pass
+            
+            # Try to find JSON array in response
+            start_idx = original_response.find('[')
+            end_idx = original_response.rfind(']')
+            if start_idx != -1 and end_idx != -1:
+                json_str = original_response[start_idx:end_idx + 1]
+                try:
+                    return json.loads(json_str)
+                except json.JSONDecodeError:
+                    pass
+            
+            # If nothing worked, raise clear error with actual response
+            raise json.JSONDecodeError(f"Could not parse JSON from: {original_response[:200]}", original_response, 0)
+                    
+        except json.JSONDecodeError:
+            # Show the ACTUAL response that failed to parse
+            clean_preview = original_response.replace('\n', '\\n').replace('\r', '\\r').replace('\t', '\\t')
+            # Limit to reasonable length
+            if len(clean_preview) > 500:
+                clean_preview = clean_preview[:500] + "..."
+            
+            raise Exception(f"JSON parsing failed. Gemini returned: {clean_preview}")
+        except Exception as ex:
+            raise Exception(f"Unexpected error in generate_json_completion: {str(ex)}")
     
     def categorize_email(self, sender: str, subject: str, body: str, 
                         categorization_prompt: str) -> str:
@@ -227,12 +302,13 @@ class LLMService:
             body=body
         )
         
-        try:
-            return self.generate_json_completion(prompt)
-        except Exception as e:
-            # Return empty tasks if extraction fails
-            print(f"Action extraction failed: {str(e)}")
-            return {"tasks": []}
+        result = self.generate_json_completion(prompt)
+        
+        # Ensure tasks key exists
+        if 'tasks' not in result:
+            result['tasks'] = []
+        
+        return result
     
     def generate_reply_draft(self, sender: str, subject: str, body: str,
                             reply_prompt: str) -> Dict[str, Any]:
@@ -254,26 +330,49 @@ class LLMService:
             body=body
         )
         
-        try:
-            response = self.generate_json_completion(prompt, temperature=0.7)
+        response = self.generate_json_completion(prompt, temperature=0.7)
+        
+        # Ensure all required fields are present
+        if 'subject' not in response:
+            response['subject'] = f"Re: {subject}"
+        if 'body' not in response:
+            response['body'] = "Thank you for your email. I will review and respond shortly."
+        if 'tone' not in response:
+            response['tone'] = "professional"
+        
+        return response
+    
+    def analyze_urgency(self, sender: str, subject: str, body: str,
+                       urgency_prompt: str) -> Dict[str, Any]:
+        """
+        Analyze the urgency level of an email.
+        
+        Args:
+            sender: Email sender
+            subject: Email subject
+            body: Email body
+            urgency_prompt: The prompt template for urgency analysis
             
-            # Ensure all required fields are present
-            if 'subject' not in response:
-                response['subject'] = f"Re: {subject}"
-            if 'body' not in response:
-                response['body'] = "Thank you for your email. I will review and respond shortly."
-            if 'tone' not in response:
-                response['tone'] = "professional"
-            
-            return response
-        except Exception as e:
-            # Return default reply if generation fails
-            print(f"Reply generation failed: {str(e)}")
-            return {
-                "subject": f"Re: {subject}",
-                "body": "Thank you for your email. I will review and respond shortly.",
-                "tone": "professional"
-            }
+        Returns:
+            Dictionary with urgency_score, reason, and suggested_response_time
+        """
+        prompt = urgency_prompt.format(
+            sender=sender,
+            subject=subject,
+            body=body
+        )
+        
+        result = self.generate_json_completion(prompt)
+        
+        # Ensure required fields exist with defaults
+        if 'urgency_score' not in result:
+            result['urgency_score'] = 3
+        if 'reason' not in result:
+            result['reason'] = 'Unable to determine urgency'
+        if 'suggested_response_time' not in result:
+            result['suggested_response_time'] = '1-2 days'
+        
+        return result
     
     def chat_query(self, query: str, context: str = "") -> str:
         """
@@ -307,5 +406,5 @@ Provide a helpful, concise response. If the query involves summarizing emails, e
         try:
             response = self.generate_completion("Say 'hello'", temperature=0.5, max_tokens=10)
             return len(response) > 0
-        except:
+        except Exception:
             return False

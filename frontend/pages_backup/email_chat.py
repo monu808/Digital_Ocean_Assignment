@@ -152,7 +152,7 @@ def show():
                         st.markdown("**Subject:**")
                         st.text(draft['subject'])
                         st.markdown("**Body:**")
-                        st.text_area("", draft['body'], height=300, label_visibility="collapsed")
+                        st.text_area("Draft Body", draft['body'], height=300, label_visibility="collapsed")
                         
                         st.info("📝 Draft saved to Draft Manager")
                     except Exception as e:
